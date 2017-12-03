@@ -4,4 +4,4 @@ A name generator written in javascript. It can generate (mostly) German names an
 
 ## Usage
 
-Just click *"New Name"*. By default it generates just random names. Alternatively enter a name into *"Template"*. Then the generator will create variations of this name.
+Just click *"New Name"*. By default it generates just random names. Alternatively enter a name into *"Template Name"*. Then the generator will create variations of this name.
