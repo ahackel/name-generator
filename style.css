@@ -42,8 +42,6 @@ button {
     font-size: 1.25em;
 }
 
-button.
-
 input {
 	/*-webkit-appearance: none;*/
 	outline: none;
@@ -111,11 +109,6 @@ p.favorite {
 p.favorite .favoriteBtn {
 	opacity: 1;
 	color: #fff;
-}
-
-p::after{
-	content: " Hackel";
-	opacity: 0.5;
 }
 
 .plain-select  {
