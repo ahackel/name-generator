@@ -2,7 +2,7 @@
 
 A name generator written in javascript. It can generate (mostly) German names and variations of these. I created it to find a name for my son.
 
-[Run Name Generator](https://andreashackelde/name-generator)
+[Run Name Generator](https://andreashackel.de/name-generator)
 
 ## Usage
 
