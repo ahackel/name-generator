@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Namen-Generator</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=320, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <script src="http://code.jquery.com/jquery-2.2.1.min.js"   integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="   crossorigin="anonymous"></script>
+
+    <!--script src="https://rawgit.com/bramstein/hypher/master/dist/jquery.hypher.js"></script>
+    <script src="https://rawgit.com/bramstein/hyphenation-patterns/master/dist/browser/de.js"></script-->
+
+    <script src="namegen.js"></script>
+    <script src="names.js"></script>
+    <link href="style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="header">
+        <input id="inName" placeholder="Vorlage eingeben"></input>
+        <span class="plain-select">
+            <select id="inMethod">
+                <option value="similar" selected="">Ähnlich wie</option>
+                <option value="startsWith">Beginnt mit</option> 
+                <option value="endsWith">Endet mit</option>
+            </select>
+        </span>
+        <span class="plain-select">
+            <select id="inNumParts">
+                <option value="1">1 Silbe</option> 
+                <option value="2">2 Silben</option> 
+                <option value="3" selected>3 Silben</option>
+                <option value="4">4 Silben</option>
+                <option value="5">5 Silben</option>
+            </select>
+        </span>
+        <button id="btnGenerate">Neuer Name</button>
+    </div>
+
+    <div id="names"></div>
+
+</body>
+</html>

@@ -1,0 +1,175 @@
+html, body {
+	font-family: -apple-system,SF UI Text,Helvetica Neue,Helvetica,Arial,sans-serif;
+	font-size: 17px;
+	line-height: 1.4em;
+	color: #ddd;
+	max-width: 640px;
+	width: 100%;
+	height: 100%;
+	background: #ccc;
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+	position: relative;
+}
+
+body {
+    background: #453D3F;
+    display: flex;
+    flex-flow: column;
+    align-content: flex-start;
+    -webkit-font-smoothing: antialiased;
+}
+
+.header {
+	display: flex;
+    flex-flow: row wrap;
+    flex: 0 0 auto;
+}
+
+button {
+    height: 2em;
+    margin: 10px;
+    background: #D23915;
+    border: none;
+    color: #fff;
+    font-size: inherit;
+    border-radius: 10px;
+    /*display: flex;*/
+    width: 100%;
+    -webkit-justify-content: center;
+    justify-content: center;
+    font-size: 1.25em;
+}
+
+button.
+
+input {
+	/*-webkit-appearance: none;*/
+	outline: none;
+	background: rgba(255, 255, 255, 0.2);
+    color: #aaa;
+    font-size: inherit;
+    margin: 10px;
+    border-radius: 5px;
+    border: none;
+    padding: 6px;
+    display: flex;
+    height: 30px;
+}
+
+input:focus {
+    background:#fff;
+    outline:none;
+}
+
+#inName {
+    box-sizing: border-box;
+    flex: 4 4 auto;
+    /*text-transform: capitalize;*/
+}
+
+#inMethod{
+}
+
+#inNumParts{
+}
+
+button:focus {
+	outline: none;
+}
+
+div#names {
+    padding: 10px;
+    flex: 1 1 auto;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    align-content: stretch;
+}
+
+p {
+    margin: 0px;
+    padding: 5px 0px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    width: 100%;
+    position: relative;
+    cursor: default;
+}
+
+p .favoriteBtn {
+	content: "★";
+	display: inline-block;
+	width: 1.4em;
+	opacity: 0.1;
+}
+
+p.favorite {
+	/*background: #4D79B9;*/
+	color: #fff;
+}
+
+p.favorite .favoriteBtn {
+	opacity: 1;
+	color: #fff;
+}
+
+p::after{
+	content: " Hackel";
+	opacity: 0.5;
+}
+
+.plain-select  {
+    display:flex;
+    position: relative;
+    flex: 0 0 auto;
+}
+
+.plain-select select {
+    line-height:normal;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    -ms-appearance:none;
+    appearance:none;
+  /*  background:#fff url(images/inpbg.png) repeat-x 0 0;*/
+    line-height:normal;
+    -webkit-border-radius:2px;
+    -moz-border-radius:2px;
+    border-radius:2px;
+
+	background: rgba(255, 255, 255, 0.1);
+    color: #aaa;
+    font-size: 0.8em;
+    margin: 10px;
+    margin-left: 0;
+    border-radius: 5px;
+    border: none;
+    padding: 6px;
+    display: block;
+    width: 100%;
+    height: 30px;
+    padding-right: 18px;
+}
+
+.ie8 .plain-select select{padding-right:3px}
+.plain-select select:focus {
+ /*   background:#fff;*/
+    outline:none;
+}
+.plain-select ::-ms-expand {
+ display:none;
+}
+.plain-select:after{
+    content:"";
+    position:absolute;
+    z-index:2;
+    right:16px;
+    top:50%;
+    margin-top:-1px;
+    height:0;
+    width:0;
+    border-top:4px solid #aaa;
+    border-left:4px solid transparent;
+    border-right:4px solid transparent;
+    pointer-events:none;
+
+}
