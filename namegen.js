@@ -1,43 +1,49 @@
 'use strict';
 
-
-
-
 class NameGen {
 
-	constructor () {
-		if (nameGen != null)
-			return nameGen;
-
+	constructor (partsFile) {
 		this.MAX_COUNT = 50000;
 		this.MIN_LENGTH = 4;
 		this.MIN_PARTS = 1;
 		this.MIN_SIMILARITY = 0.6;
-		this.PARTS_FILE = 'parts.txt';
-
 
 		this.parts = [];
 		this.names = [];
 
-		$.get(this.PARTS_FILE, '', function(data){
-			function longer(s1, s2){
-				return s2.length - s1.length;
-			}
+		this.loadParts(partsFile);
+	}
 
-			var lines = data.split(/\n/);
+	loadParts(partsFile) {
+		function longer(s1, s2){
+			return s2.length - s1.length;
+		}
 
-			for (var line of lines) {
-				var parts = line.split(' ');
+		fetch(partsFile)
+			.then(response => {
+				if (response.ok) {
+					return Promise.resolve(response);
+				}
+				else {
+					return Promise.reject(new Error('Failed to load ' + partsFile))
+				}
+			})
+			.then(response => response.text())
+			.then(data => {
+				var lines = data.split(/\n/);
 
-				for (var c = 0; c < parts.length; c++)
-					this.addUnique(this.parts, parts[c].toLowerCase());
+				for (var line of lines) {
+					var parts = line.split(' ');
 
-				//console.log(window['Hypher']['languages']['de'].hyphenate(parts.join('')));
-			}
+					for (var c = 0; c < parts.length; c++)
+						this.addUnique(this.parts, parts[c].toLowerCase());
+				}
 
-			this.parts.sort(longer);
-
-		}.bind(this));
+				this.parts.sort(longer);
+			})
+			.catch(function(error) {
+				console.log(`Error: ${error.message}`);
+			});
 	}
 
 	addUnique(a, item) {
@@ -56,7 +62,7 @@ class NameGen {
 	getRandomPart(start) {
 		var parts = nameGen.parts;
 		var validParts = parts;
-		
+
 		if (start && start.length > 0)
 			validParts = parts.filter(function(s){ return s.startsWith(start.substr(0, s.length)); });
 
@@ -70,7 +76,7 @@ class NameGen {
 	getRandomPartReverse(end) {
 		var parts = nameGen.parts;
 		var validParts = parts;
-		
+
 		if (end && end.length > 0) {
 			validParts = parts.filter(function(s){ return s.endsWith(end.substr(-s.length)); });
 		}
@@ -83,7 +89,7 @@ class NameGen {
 	}
 
 	generateName(start, maxParts) {
-		
+
 		start = start || "";
 		maxParts = maxParts || 3;
 
@@ -120,7 +126,7 @@ class NameGen {
 	}
 
 	generateNameReverse(end, maxParts) {
-		
+
 		end = end || "";
 		maxParts = maxParts || 3;
 
@@ -156,58 +162,12 @@ class NameGen {
 		return name;
 	}
 
-	_generateSimilarName(orgName, maxParts) {
-		
-		maxParts = maxParts || 3;
+	generateSimilarName(orgName, maxParts) {
 
-		var name = "";
-		var count = 0;
-		var orgParts = this.breakName(orgName).split('-');
-
-		do {
-			name = "";
-			count++;
-
-			var numParts = this.randomInt(this.MIN_PARTS, maxParts + 1);
-			//numParts = orgParts.length;
-
-			var parts = [];
-			var numNewParts = 0;
-
-			// initialize with original parts:
-			for (var i = 0; i < numParts; i++) {
-				if (i < orgParts.length)
-					parts[i] = orgParts[i];
-			}
-
-
-			for (var i = numParts - 1; i >= 0; i--) {
-
-				if ((i == 0 && numNewParts == 0) || parts[i] == null ||
-					(this.randomInt(0, 2) == 1 && numNewParts == 0)) {
-					// replace by random part:
-					parts[i] = this.getRandomPart();
-					numNewParts += 1;
-				}
-			}
-
-			name = parts.join('');
-
-		} while ((name.length < this.MIN_LENGTH || this.names.includes(name) || name == orgName) && count < this.MAX_COUNT)
-
-		if (count == this.MAX_COUNT)
-			name = "";
-
-		if (name.length > 0) {
-			name = name[0].toUpperCase() + name.slice(1);
-			this.names.push(name);
+		if (!orgName) {
+			return this.generateName('', maxParts);
 		}
 
-		return name;
-	}
-
-	generateSimilarName(orgName, maxParts) {
-		
 		maxParts = maxParts || 3;
 
 		orgName = orgName.toLowerCase();
@@ -239,33 +199,6 @@ class NameGen {
 		}
 
 		return name;
-	}
-
-
-
-	_breakName(name) {
-		function findSyllable(e) {
-			return name.startsWith(e);
-		}
-
-		name = name.toLowerCase();
-		var broken = "";
-
-		while (name.length > 0) {
-			var syllable = this.parts.find(findSyllable);
-
-			if (syllable == null)
-				return "";
-
-			if (broken.length > 0)
-				broken += "-";
-
-			broken += syllable;
-			name = name.substr(syllable.length);
-		}
-		broken = broken[0].toUpperCase() + broken.slice(1);
-
-		return broken;
 	}
 
 	breakName(name) {
@@ -369,5 +302,3 @@ class NameGen {
 		return (longerLength - editDistance(longer, shorter)) / parseFloat(longerLength);
 	}
 }
-
-var nameGen = new NameGen();

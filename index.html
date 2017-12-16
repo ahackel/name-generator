@@ -1,44 +1,36 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-    <title>Name Generator</title>
-   <meta charset="utf-8">
-   <meta name="viewport" content="width=320, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<head>
+		<title>Name Generator</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-    <script src="http://code.jquery.com/jquery-2.2.1.min.js"   integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="   crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="style.css">
 
-    <!--script src="https://rawgit.com/bramstein/hypher/master/dist/jquery.hypher.js"></script>
-    <script src="https://rawgit.com/bramstein/hyphenation-patterns/master/dist/browser/de.js"></script-->
+	</head>
+	<body>
 
-    <script src="namegen.js"></script>
-    <script src="names.js"></script>
-    <link href="style.css" rel="stylesheet" type="text/css">
-</head>
-<body>
-    <div class="header">
-        <input id="inName" placeholder="Template Name"></input>
-        <span class="plain-select">
-            <select id="inMethod">
-                <option value="similar" selected="">Similar</option>
-                <option value="startsWith">Starts With</option>
-                <option value="endsWith">Ends With</option>
-            </select>
-        </span>
-        <span class="plain-select">
-            <select id="inNumParts">
-                <option value="1">1 Syllable</option>
-                <option value="2">2 Syllables</option>
-                <option value="3" selected>3 Syllables</option>
-                <option value="4">4 Syllables</option>
-                <option value="5">5 Syllables</option>
-            </select>
-        </span>
-        <button id="btnGenerate">New Name</button>
-    </div>
 
-    <div id="names"></div>
+	<div id="app" v-cloak>
+		<header class="header">
+			<input v-model="templateName" id="inName" placeholder="Template Name"></input>
+			<span class="options">
+				<drop-down v-bind.sync="methodOptions"></drop-down>
+				<drop-down v-bind.sync="partsOptions"></drop-down>
+			</span>
+			<button @click="generateName" id="btnGenerate">New Name</button>
+		</header>
 
-</body>
+		<ul id="names">
+			<name-entry v-for="(entry, index) in names" :key="index" v-bind.sync="entry" v-on:name-clicked="setTemplate"></name-entry>
+		</ul>
+	</div>
+
+	<script src="vue.min.js"></script>
+	<script src="NameGen.js"></script>
+	<script src="app.js"></script>
+
+	</body>
 </html>
