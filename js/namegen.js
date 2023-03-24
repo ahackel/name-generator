@@ -1,6 +1,6 @@
 'use strict';
 
-class NameGen {
+export class NameGen {
 
 	constructor (partsFile) {
 		this.MAX_COUNT = 50000;

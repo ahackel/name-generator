@@ -36,7 +36,7 @@ var nameStorage = {
 }
 
 
-var nameGen = new NameGen('parts.txt');
+var nameGen = new NameGen('data/parts.txt');
 
 var app = new Vue({
 	el: '#app',

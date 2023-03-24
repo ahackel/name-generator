@@ -1,0 +1,23 @@
+{
+  "name": "name-generator",
+  "version": "1.0.0",
+  "description": "Generates Names from syllables",
+  "type": "module",
+  "main": "index.html",
+  "scripts": {
+    "test": "ava"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahackel/name-generator.git"
+  },
+  "author": "Andreas Hackel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ahackel/name-generator/issues"
+  },
+  "homepage": "https://github.com/ahackel/name-generator#readme",
+  "devDependencies": {
+    "ava": "^5.2.0"
+  }
+}
