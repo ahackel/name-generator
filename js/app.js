@@ -1,25 +1,7 @@
 'use strict';
 
-Vue.component('drop-down', {
-	props: ['options', 'selectedIndex'],
-	template: `<span class="plain-select">
-<select @input="$emit('update:selectedIndex', $event.target.selectedIndex)">
-	<option v-for="(option, index) in options" :selected="index == selectedIndex ? 'selected' : ''">{{ option }}</option>
-</select></span>`
-});
-
-Vue.component('name-entry', {
-	props: ['name', 'favorite'],
-	template: `<li>
-<a href="#" :class="(favorite) ? 'favorite' : 'no-favorite'" @click="$emit('update:favorite', !favorite)">★</a>
-<a href="#" @click="nameClicked">{{ name }}</a>
-</li>`,
-	methods: {
-		nameClicked: function() {
-			this.$emit('name-clicked', this)
-		}
-	}
-});
+import { createApp } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+import {NameGen} from "./namegen.js";
 
 
 // localStorage persistence
@@ -35,27 +17,27 @@ var nameStorage = {
 	}
 }
 
-
 var nameGen = new NameGen('data/parts.txt');
 
-var app = new Vue({
+const app = createApp({
 	el: '#app',
 
-	data: {
-		templateName: "",
-		methodOptions: {
-			options: ["Similar", "Starts With", "Ends With"],
-			selectedIndex: 0
-		},
-		partsOptions: {
-			options: ["1 Syllable", "2 Syllables", "3 Syllables", "4 Syllables", "5 Syllables"],
-			selectedIndex: 2
-		},
-		names: nameStorage.fetch()
+	data() {
+		return {
+			templateName: "",
+			methodOptions: {
+				options: ["Similar", "Starts With", "Ends With"],
+				selectedIndex: 0
+			},
+			partsOptions: {
+				options: ["1 Syllable", "2 Syllables", "3 Syllables", "4 Syllables", "5 Syllables"],
+				selectedIndex: 2
+			},
+			names: nameStorage.fetch()
+		}
 	},
-
 	methods: {
-		generateName: function() {
+		generateName() {
 			var numParts = this.partsOptions.selectedIndex + 1;
 			var name = '';
 			var method = this.methodOptions.selectedIndex;
@@ -78,18 +60,40 @@ var app = new Vue({
 
 			this.names.push({ name: name, favorite: false });
 		},
-		setTemplate: function(entry) {
+		setTemplate(entry) {
 			this.templateName = entry.name;
 		}
 	},
-
 	watch: {
 		names: {
-			handler: function (names) {
-				nameStorage.save(names)
+			handler(names) {
+				nameStorage.save(names);
 			},
 			deep: true
 		}
-	},
-
+	}
 });
+
+app.component('drop-down', {
+	props: ['options', 'selectedIndex'],
+	template: `<span class="plain-select">
+    <select @input="$emit('update:selectedIndex', $event.target.selectedIndex)">
+      <option v-for="(option, index) in options" :selected="index == selectedIndex ? 'selected' : ''">{{ option }}</option>
+    </select>
+  </span>`
+});
+
+app.component('name-entry', {
+	props: ['name', 'favorite'],
+	template: `<li>
+    <a href="#" :class="(favorite) ? 'favorite' : 'no-favorite'" @click="$emit('update:favorite', !favorite)">★</a>
+    <a href="#" @click="nameClicked">{{ name }}</a>
+  </li>`,
+	methods: {
+		nameClicked: function() {
+			this.$emit('name-clicked', this)
+		}
+	}
+});
+
+app.mount('#app');

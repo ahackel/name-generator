@@ -60,7 +60,7 @@ export class NameGen {
 	}
 
 	getRandomPart(start) {
-		var parts = nameGen.parts;
+		var parts = this.parts;
 		var validParts = parts;
 
 		if (start && start.length > 0)
